@@ -1,3 +1,26 @@
+<?php
+	//kommentaar
+	$myName = "Tim";
+	$myFamilyName = "Jaanson";
+	//kellaaeg
+	$hourNow = date("H");
+	$partOfDay = "";
+	
+	if ($hourNow < 8) {
+		$partOfDay = "Varajane hommik";
+	}elseif ($hourNow >= 8 and $hourNow < 16) {
+		$partOfDay = "Koolipäev";
+	}else{
+		$partOfDay = "vaba aeg";
+	}
+	
+	$timeNow = strtotime(date("d.m.Y H:i:s"));
+	//echo $timeNow;
+	$schoolDayEnd = strtotime(date("d.m.Y" . " " ."15:45"));
+	$toTheEnd = $schoolDayEnd - $timeNow;
+	echo (round($toTheEnd / 60));
+?>
+
 <!doctype html>
 <html>
 <head>
@@ -33,7 +56,12 @@
 		
 		
 		<?php
-		echo "AYYY";
+		echo "<br><br>";
+		echo "<p>Täna on ".date("d.m.Y").", kell lehe avamisel oli " .date("H:i:s");
+		echo "</p>";
+		print $myName." ".$myFamilyName;
+		echo "<br>Käes on ". $partOfDay ."</p>";
+		
 		?>
 
 
