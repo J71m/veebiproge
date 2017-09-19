@@ -2,6 +2,12 @@
 	//kommentaar
 	$myName = "Tim";
 	$myFamilyName = "Jaanson";
+	
+	$monthNamesEt = ["jaanuar", "veebruar", "märts", "aprill", "mai", "juuni", "juuli", "august","september", "oktoober", "november", "detsember"];
+	//echo $monthNamesEt[7];
+	$monthNow = $monthNamesEt[date("n")-1];
+	//echo $monthNow;
+	
 	//kellaaeg
 	$hourNow = date("H");
 	$partOfDay = "";
@@ -18,7 +24,28 @@
 	//echo $timeNow;
 	$schoolDayEnd = strtotime(date("d.m.Y" . " " ."15:45"));
 	$toTheEnd = $schoolDayEnd - $timeNow;
-	echo (round($toTheEnd / 60));
+	//echo (round($toTheEnd / 60));
+	
+	//var_dump($_POST);
+	$myBirthYear;
+	$ageNotice = "";
+	if (isset($_POST["birthYear"])) {
+		$myBirthYear = $_POST["birthYear"];
+		$myAge = date("Y") - $_POST["birthYear"];
+		
+		$ageNotice = "<p>Teie vanus on ligikaudselt " . $myAge ." aastat.</p>";
+		
+		$ageNotice .= "<p>Olete elanud järgnevatel aastatel: </p>";
+		$ageNotice .= "<ul>";
+		$yearNow = date("Y");
+		for ($i = $myBirthYear; $i <= $yearNow; $i++) {
+			$ageNotice .= "<li>" .$i ."</li> \n";
+		} 
+		$ageNotice .="</ul>";
+  	}
+	/*for ($i = 0; $i < 10; $i++) {
+			
+	}*/
 ?>
 
 <!doctype html>
@@ -57,16 +84,25 @@
 		
 		<?php
 		echo "<br><br>";
-		echo "<p>Täna on ".date("d.m.Y").", kell lehe avamisel oli " .date("H:i:s");
+		echo "<p>Täna on ".date("d. ") .$monthNow .date(" Y") .", kell lehe avamisel oli " .date("H:i:s");
 		echo "</p>";
 		print $myName." ".$myFamilyName;
 		echo "<br>Käes on ". $partOfDay ."</p>";
-		
+				
 		?>
 
-
-
-
+		<h2>Aastaarv</h2>
+		<form method="POST">
+			<label><p>sünniaasta</p></label>
+			<input type="number" name="birthYear" min="1900" value="<?php echo $myBirthYear; ?>">
+			<input type="submit" name="submitBirthYear" value="Submit">
+		</form>
+		
+		<?php
+			if ($ageNotice != "") {
+				echo $ageNotice;
+			}	
+		?>
 
 
 		<footer>
